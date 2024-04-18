@@ -161,7 +161,7 @@ public class ResidentialAreaService {
 
 
         }catch (DataIntegrityViolationException e) {
-            response = new ResponseEntity<>("User data already present encrypted ID ->" + residentUser.getId().hashCode(), HttpStatus.BAD_REQUEST);
+               response = new ResponseEntity<>("User data already present encrypted [user-name] ->" + residentUser.getFirstName().hashCode(), HttpStatus.BAD_REQUEST);
 
         }catch (DataAccessException e) {
             response = new ResponseEntity<>("Error accessing data from the database", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -181,14 +181,15 @@ public class ResidentialAreaService {
 
         ResponseEntity<?> response = null;
 
-        Admin insertedAdmin = adminRepository.saveAndFlush(admin);
+       
 
         try {
-
+             Admin insertedAdmin = adminRepository.saveAndFlush(admin);
+            
             response = new ResponseEntity<>(insertedAdmin,HttpStatus.CREATED);
 
         }catch (DataIntegrityViolationException e) {
-            response = new ResponseEntity<>("Admin data already present encrypted ID ->" + admin.getId().hashCode(), HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>("Admin data already present encrypted [admin-name] ->" + admin.getFirstName().hashCode(), HttpStatus.BAD_REQUEST);
 
         }catch (DataAccessException e) {
             response = new ResponseEntity<>("Error accessing data from the database", HttpStatus.INTERNAL_SERVER_ERROR);
